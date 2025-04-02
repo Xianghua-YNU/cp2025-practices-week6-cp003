@@ -5,6 +5,7 @@ import time
 # 最概然速率 (m/s)
 vp = 1578  
 
+# 计算麦克斯韦速率分布函数的参数
 def maxwell_distribution(v, vp):
     """
     计算麦克斯韦速率分布函数值
