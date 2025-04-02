@@ -73,6 +73,7 @@ def parameter_sensitivity_analysis():
     plt.xlabel("Sample Points")
     plt.ylabel("Amplitude")
     plt.legend()
+    plt.savefig("Frequency Difference Analysis.png")
 
     # 学生任务10: 振幅比例分析
     plt.figure(2, figsize=(12, 8))
@@ -84,7 +85,7 @@ def parameter_sensitivity_analysis():
     plt.xlabel("Sample Points")
     plt.ylabel("Amplitude")
     plt.legend()
-
+    plt.savefig("amplitude_ratio_analysis.png")
     plt.show()
 
 if __name__ == "__main__":
@@ -92,6 +93,8 @@ if __name__ == "__main__":
     print("=== 任务1: 基本拍频模拟 ===")
     t, wave, beat_freq = simulate_beat_frequency()
     print(f"计算得到的拍频为: {beat_freq} Hz")
+    plt.savefig("beat_frequency_simulation.png")
     
     print("\n=== 任务2: 参数敏感性分析 ===")
     parameter_sensitivity_analysis()
+    #plt.savefig("parameter_sensitivity_analysis.png")
