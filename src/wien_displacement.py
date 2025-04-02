@@ -118,3 +118,8 @@ if __name__ == "__main__":
     wavelength_sun = 502e-9  # 502 nm 转换为米
     temperature_sun = calculate_temperature(wavelength_sun, x0)
     print(f"\n太阳表面温度估计值：{temperature_sun:.0f} K")
+
+    #计算人体表面温度
+    wavelength_body = 9.5e-6  # 9400 nm 转换为米
+    temperature_body = calculate_temperature(wavelength_body, x0)
+    print(f"人体表面温度估计值：{temperature_body:.0f} K")
