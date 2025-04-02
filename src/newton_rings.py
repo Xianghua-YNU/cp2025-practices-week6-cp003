@@ -22,7 +22,11 @@ def generate_grid():
     tuple: 包含网格坐标X、Y以及径向距离r的元组
     """
     # 在此生成x和y方向的坐标网格
-    pass
+    x = np.linspace(-size, size, points)
+    y = np.linspace(-size, size, points)
+    X, Y = np.meshgrid(x, y)  # 创建二维网格
+    r = np.sqrt(X**2 + Y**2)  # 计算每个点到中心的径向距离
+    return X, Y, r
 
 def calculate_intensity(r, lambda_light, R_lens):
     """
@@ -37,7 +41,11 @@ def calculate_intensity(r, lambda_light, R_lens):
     np.ndarray: 干涉强度分布数组
     """
     # 在此实现光强计算
-    pass
+    # 计算空气薄膜厚度d = R - √(R² - r²)
+    d = R_lens - np.sqrt(R_lens**2 - r**2)
+    # 计算光强分布 I = 4sin²(2πd/λ)
+    intensity = 4 * np.sin(2 * np.pi * d / lambda_light)**2
+    return intensity
 
 def plot_newton_rings(intensity):
     """
@@ -47,7 +55,14 @@ def plot_newton_rings(intensity):
     intensity (np.ndarray): 干涉强度分布数组
     """
     # 在此实现图像绘制
-    pass
+    plt.figure(figsize=(8, 8))
+    plt.imshow(intensity, cmap=cmap, extent=[-2, 2, -2, 2])  # 显示范围为±2mm
+    plt.colorbar(label='光强强度')
+    plt.title("牛顿环干涉图样")
+    plt.xlabel("x (mm)")
+    plt.ylabel("y (mm)")
+    plt.axis('on')
+    plt.show()
 
 if __name__ == "__main__":
     # 1. 设置参数
