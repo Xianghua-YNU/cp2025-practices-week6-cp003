@@ -22,8 +22,8 @@ def generate_grid():
     tuple: 包含网格坐标X、Y以及径向距离r的元组
     """
     # 在此生成x和y方向的坐标网格
-    x = np.linspace(-size, size, points)
-    y = np.linspace(-size, size, points)
+    x = np.linspace(-0.001, 0.001, 1000)
+    y = np.linspace(-0.001, 0.001, 1000)
     X, Y = np.meshgrid(x, y)  # 创建二维网格
     r = np.sqrt(X**2 + Y**2)  # 计算每个点到中心的径向距离
     return X, Y, r
