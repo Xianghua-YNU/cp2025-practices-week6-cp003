@@ -25,19 +25,28 @@ def plot_wien_equation():
     两条曲线的交点即为方程的解
     """
     # TODO: 创建x轴数据点
-    x = None
-    
+    x = np.linspace(-1, 6, 100)
+    y1 = 5 * np.exp(-x)
+    y2 = 5 - x
+    x_intersect = fsolve(wien_equation, 5.0)[0]
+    y_intersect = 5 * np.exp(-x_intersect)
     # TODO: 创建图形并设置大小
-    
+    plt.figure(figsize=(8, 6))
     # TODO: 绘制两条曲线
-    
+    plt.plot(x, y1, 'r', label='y = 5 * exp(-x)')
+    plt.plot(x, y2, label='y = 5 - x')
+    plt.scatter(x_intersect, y_intersect, color='blue', label=f'Intersection (x={x_intersect:.2f})')
     # TODO: 设置坐标轴标签和标题
-    
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Graphical Solution of Wien Equation')
     # TODO: 添加图例和网格
+    plt.legend()
+    plt.grid(True)
+    # TODO: 显示图形python3 -m unittest discover -s tests
+    plt.savefig('wien_equation_plot.png')  # 保存图像到文件
+    plt.show()
     
-    # TODO: 显示图形
-    pass
-
 def wien_equation(x):
     """维恩方程：5e^(-x) + x - 5 = 0
     
@@ -48,7 +57,7 @@ def wien_equation(x):
     float: 方程的函数值
     """
     # TODO: 返回维恩方程的函数值
-    return None
+    return 5 * np.exp(-x) + x - 5
 
 def solve_wien_constant(x0):
     """求解维恩位移常数
@@ -65,10 +74,10 @@ def solve_wien_constant(x0):
         - b (float): 维恩位移常数，单位：m·K
     """
     # TODO: 使用fsolve求解非线性方程
-    x = None
+    x = float(fsolve(wien_equation, x0)[0])
     
     # TODO: 计算维恩位移常数
-    b = None
+    b = constants.h * constants.c / (constants.k * x)
     
     return x, b
 
@@ -85,7 +94,8 @@ def calculate_temperature(wavelength, x0=5.0):
     float: 黑体温度，单位：开尔文
     """
     # TODO: 计算温度
-    return None
+    _, b = solve_wien_constant(x0)
+    return b / wavelength
 
 if __name__ == "__main__":
     # 绘制方程图像
@@ -108,3 +118,8 @@ if __name__ == "__main__":
     wavelength_sun = 502e-9  # 502 nm 转换为米
     temperature_sun = calculate_temperature(wavelength_sun, x0)
     print(f"\n太阳表面温度估计值：{temperature_sun:.0f} K")
+
+    #计算人体表面温度
+    wavelength_body = 9.5e-6  # 9400 nm 转换为米
+    temperature_body = calculate_temperature(wavelength_body, x0)
+    print(f"人体表面温度估计值：{temperature_body:.0f} K")
